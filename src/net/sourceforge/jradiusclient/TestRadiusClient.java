@@ -15,6 +15,7 @@ import net.sourceforge.jradiusclient.util.*;
  * @version $Revision: 1.21 $
  */
 public class TestRadiusClient{
+	
     public static String getUsage(){
         return "usage: TestRadiusClient -s RadiusServer -S sharedSecret [--authPort=1812] [--acctPort=1813]";
     }
@@ -39,10 +40,10 @@ public class TestRadiusClient{
                     sharedSecret = gOpt.getOptarg();
                     break;
                 case 1:
-                    authport = (new Integer(portSb.toString())).intValue();
+                    authport = (Integer.valueOf(portSb.toString())).intValue();
                     break;
                 case 2:
-                    acctport = (new Integer(portSb.toString())).intValue();
+                    acctport = (Integer.valueOf(portSb.toString())).intValue();
                     break;
                 case '?':
                     break;//getopt already printed an error
@@ -73,11 +74,10 @@ public class TestRadiusClient{
             final ChapUtil chapUtil,
             final BufferedReader inputReader){
         try{
-            boolean attributes = false, continueTest = true;
+            boolean continueTest = true;
             String userName = null, userPass = null, authMethod = null;
             System.out.println("Performing tests using basic classes: ");
-            while(continueTest){
-                attributes = false;
+            while(continueTest){                
                 RadiusPacket accessRequest = new RadiusPacket(RadiusPacket.ACCESS_REQUEST);
                 RadiusAttribute userNameAttribute;
                 //prompt user for input
@@ -183,11 +183,10 @@ public class TestRadiusClient{
             final ChapUtil chapUtil,
             final BufferedReader inputReader){
         try{
-            boolean attributes = false, continueTest = true;
+            boolean continueTest = true;
             String userName = null, userPass = null, authMethod = null;
             System.out.println("Performing tests using advanced classes: ");
             while(continueTest){
-                attributes = false;
                 RadiusPacket accessRequest = null;
                 //prompt user for input
                 System.out.print("Username: ");
@@ -267,7 +266,7 @@ public class TestRadiusClient{
         printAttributes(accountResponse);
     }
     private static void printAttributes(RadiusPacket rp){
-        Iterator attributes = rp.getAttributes().iterator();
+        Iterator<?> attributes = rp.getAttributes().iterator();
         RadiusAttribute tempRa;
         System.out.println("Response Packet Attributes");
         System.out.println("\tType\tValue");

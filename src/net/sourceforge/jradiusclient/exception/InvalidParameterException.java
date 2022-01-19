@@ -9,6 +9,10 @@ import java.lang.Exception;
 
 public class InvalidParameterException extends Exception{
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -175703156539646387L;
+	/**
      * The default message constructor
      */
     public InvalidParameterException(){

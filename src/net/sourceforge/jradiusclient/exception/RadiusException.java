@@ -9,6 +9,11 @@ import java.lang.Exception;
 
 public class RadiusException extends Exception{
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4220083841700607598L;
+
+	/**
      * @param message the exception message
      */
     public RadiusException(String message){

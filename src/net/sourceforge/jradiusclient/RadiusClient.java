@@ -51,7 +51,6 @@ import net.sourceforge.jradiusclient.exception.RadiusException;
 public class RadiusClient
 {
     private static byte [] NAS_ID;
-    private static byte [] NAS_IP;
     private static final int AUTH_LOOP_COUNT = 3;
     private static final int ACCT_LOOP_COUNT = 3;
     private static final int DEFAULT_AUTH_PORT = 1812;
@@ -70,8 +69,7 @@ public class RadiusClient
     static {
         try{
             InetAddress localHost = InetAddress.getLocalHost();
-            NAS_ID = (localHost.getHostName()).getBytes();
-            NAS_IP = (localHost.getHostAddress()).getBytes();
+            NAS_ID = (localHost.getHostName()).getBytes();            
         }catch (UnknownHostException uhex){
             //If this happens the host has no IP address, what can we do???
             //everything will be fouled up anyway!!
@@ -601,7 +599,6 @@ public class RadiusClient
         DataInputStream input = new DataInputStream(bais);
         try{
             int returnCode = -1;
-            int packetLength = packet.getLength();
             byte code = input.readByte();
             returnCode = code & 0xff;
             //now check the identifiers to see if they match
@@ -813,6 +810,5 @@ public class RadiusClient
      */
     public void finalize() throws Throwable{
         this.closeSocket();
-        super.finalize();
     }
 }
